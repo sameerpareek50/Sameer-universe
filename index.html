@@ -190,10 +190,14 @@
             
             return new THREE.CanvasTexture(canvas);
         }
+        
+        const textureLoader = new THREE.TextureLoader();
 
         // Sun
+        // PASTE YOUR IMAGE URL HERE
+        const sunTexture = textureLoader.load('Sun.jpg'); 
         const sunGeometry = new THREE.SphereGeometry(1.2, 32, 32);
-        const sunMaterial = new THREE.MeshBasicMaterial({ color: 0xFC9601 });
+        const sunMaterial = new THREE.MeshBasicMaterial({ map: sunTexture });
         const sun = new THREE.Mesh(sunGeometry, sunMaterial);
         sun.userData = { type: 'sun', name: 'About Me', content: universeData.sun.content };
         solarSystem.add(sun);
@@ -218,7 +222,6 @@
         sun.add(sunFlagGroup);
 
         // Sun Glow
-        const textureLoader = new THREE.TextureLoader();
         const glowTexture = textureLoader.load('https://s3-us-west-2.amazonaws.com/s.cdpn.io/17271/glow.png');
         const glowMaterial = new THREE.SpriteMaterial({ map: glowTexture, color: 0xFFFF00, transparent: true, blending: THREE.AdditiveBlending });
         const glowSprite = new THREE.Sprite(glowMaterial);
