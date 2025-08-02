@@ -39,17 +39,6 @@
             color: #60a5fa;
             font-weight: 500;
         }
-        /* Permanent 3D Labels */
-        .label {
-            color: #fff;
-            font-family: 'Exo 2', sans-serif;
-            font-size: 14px;
-            text-shadow: -1px 1px 1px #000;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 4px 8px;
-            border-radius: 4px;
-            white-space: nowrap;
-        }
         .scroll-down-indicator {
             position: absolute;
             bottom: 2rem;
@@ -145,9 +134,12 @@
         
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap; 
+        
         camera.position.z = 12;
 
-        // CSS2D Renderer for labels
+        // CSS2D Renderer for labels (no longer needed, but keep the script import)
         let labelRenderer = new THREE.CSS2DRenderer();
         labelRenderer.setSize(window.innerWidth, window.innerHeight);
         labelRenderer.domElement.style.position = 'absolute';
@@ -156,9 +148,10 @@
         document.body.appendChild(labelRenderer.domElement);
 
         // Lights
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
         scene.add(ambientLight);
-        const pointLight = new THREE.PointLight(0xFFFF88, 1.5, 200);
+        const pointLight = new THREE.PointLight(0xFFFF88, 1, 200);
+        pointLight.castShadow = true;
         scene.add(pointLight);
 
         // Starfield
@@ -173,23 +166,56 @@
 
         // Create Celestial Bodies
         const celestialBodies = [];
-        const universeContainer = new THREE.Object3D();
-        scene.add(universeContainer);
+        const solarSystem = new THREE.Object3D();
+        scene.add(solarSystem);
         
+        // --- Function to create a flag texture ---
+        function createFlagTexture(text, isSun = false) {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            const fontSize = isSun ? 60 : 50;
+            const font = `bold ${fontSize}px Orbitron`;
+            context.font = font;
+            
+            const textWidth = context.measureText(text).width;
+            canvas.width = textWidth + 40; // Add some padding
+            canvas.height = 100;
+
+            // Re-apply font after resizing canvas
+            context.font = font;
+            context.textAlign = 'center';
+            context.textBaseline = 'middle';
+            context.fillStyle = 'white';
+            context.fillText(text, canvas.width / 2, canvas.height / 2);
+            
+            return new THREE.CanvasTexture(canvas);
+        }
+
         // Sun
         const sunGeometry = new THREE.SphereGeometry(1.2, 32, 32);
         const sunMaterial = new THREE.MeshBasicMaterial({ color: 0xFC9601 });
         const sun = new THREE.Mesh(sunGeometry, sunMaterial);
-        sun.userData = { type: 'sun', name: 'Sameer Pareek', content: universeData.sun.content };
-        universeContainer.add(sun); // Add sun to the container
+        sun.userData = { type: 'sun', name: 'About Me', content: universeData.sun.content };
+        solarSystem.add(sun);
         celestialBodies.push(sun);
 
-        const sunLabelDiv = document.createElement('div');
-        sunLabelDiv.className = 'label';
-        sunLabelDiv.textContent = 'Sameer Pareek';
-        const sunLabel = new THREE.CSS2DObject(sunLabelDiv);
-        sunLabel.position.set(0, 1.5, 0);
-        sun.add(sunLabel);
+        // --- Create Flag for the Sun ---
+        const sunFlagGroup = new THREE.Group();
+        sunFlagGroup.name = 'flag';
+        const sunPoleGeometry = new THREE.CylinderGeometry(0.03, 0.03, 1.2, 8);
+        const sunPoleMaterial = new THREE.MeshBasicMaterial({ color: 0xcccccc });
+        const sunPoleMesh = new THREE.Mesh(sunPoleGeometry, sunPoleMaterial);
+        sunPoleMesh.position.y = 1.2;
+        sunFlagGroup.add(sunPoleMesh);
+        const sunFlagTexture = createFlagTexture("About Me", true);
+        const sunFlagWidth = sunFlagTexture.image.width / 200;
+        const sunFlagHeight = sunFlagTexture.image.height / 200;
+        const sunFlagGeometry = new THREE.PlaneGeometry(sunFlagWidth, sunFlagHeight);
+        const sunFlagMaterial = new THREE.MeshBasicMaterial({ map: sunFlagTexture, side: THREE.DoubleSide, transparent: true });
+        const sunFlagMesh = new THREE.Mesh(sunFlagGeometry, sunFlagMaterial);
+        sunFlagMesh.position.set(sunFlagWidth / 2, 1.2 + 0.3, 0);
+        sunFlagGroup.add(sunFlagMesh);
+        sun.add(sunFlagGroup);
 
         // Sun Glow
         const textureLoader = new THREE.TextureLoader();
@@ -204,7 +230,7 @@
             { color: 0x7AD9F5, size: 0.5, orbitRadius: 4.0 },  // Reelify (Light Blue)
             { color: 0xF5A623, size: 0.4, orbitRadius: 6.0 },  // Text2Sign (Orange)
             { color: 0x9B59B6, size: 0.6, orbitRadius: 8.0 },  // Football Analysis (Purple)
-            { color: 0x50E3C2, size: 0.55, orbitRadius: 10.0 } // Deloitte Internship (Teal)
+            { color: 0x50E3C2, size: 0.55, orbitRadius: 9.5 } // Deloitte Internship (Teal)
         ];
 
         universeData.planets.forEach((planetData, i) => {
@@ -213,33 +239,45 @@
             const planetMaterial = new THREE.MeshStandardMaterial({
                 color: info.color,
                 emissive: info.color,
-                emissiveIntensity: 0.15,
+                emissiveIntensity: 0.1,
                 roughness: 0.5,
                 metalness: 0.1
             });
             const planet = new THREE.Mesh(planetGeometry, planetMaterial);
+            planet.castShadow = true;
+            planet.receiveShadow = true;
             
-            const orbit = new THREE.Object3D();
-            orbit.rotation.x = Math.random() * Math.PI;
-            orbit.rotation.y = Math.random() * Math.PI;
-            universeContainer.add(orbit); // Add orbit to the container
-
-            planet.position.x = info.orbitRadius;
-            orbit.add(planet);
+            solarSystem.add(planet);
             
-            const orbitSpeed = 0.1 + Math.random() * 0.08;
-            planet.userData = { type: 'planet', ...planetData, orbit: orbit, orbitSpeed: orbitSpeed };
+            const baseSpeed = 0.03 + Math.random() * 0.02; 
+            planet.userData = { type: 'planet', ...planetData, orbitRadius: info.orbitRadius, baseSpeed: baseSpeed, angle: Math.random() * Math.PI * 2 };
 
             celestialBodies.push(planet);
             
-            const planetLabelDiv = document.createElement('div');
-            planetLabelDiv.className = 'label';
-            planetLabelDiv.textContent = planetData.name;
-            const planetLabel = new THREE.CSS2DObject(planetLabelDiv);
-            planetLabel.position.set(0, info.size + 0.3, 0);
-            planet.add(planetLabel);
+            // --- Create Flag for each planet ---
+            const flagGroup = new THREE.Group();
+            flagGroup.name = 'flag';
+            
+            const poleGeometry = new THREE.CylinderGeometry(0.02, 0.02, 0.8, 8);
+            const poleMaterial = new THREE.MeshBasicMaterial({ color: 0xcccccc });
+            const poleMesh = new THREE.Mesh(poleGeometry, poleMaterial);
+            poleMesh.position.y = info.size;
+            flagGroup.add(poleMesh);
+
+            const flagTexture = createFlagTexture(planetData.name);
+            const flagWidth = flagTexture.image.width / 200;
+            const flagHeight = flagTexture.image.height / 200;
+            const flagGeometry = new THREE.PlaneGeometry(flagWidth, flagHeight);
+            const flagMaterial = new THREE.MeshBasicMaterial({ map: flagTexture, side: THREE.DoubleSide, transparent: true });
+            const flagMesh = new THREE.Mesh(flagGeometry, flagMaterial);
+            flagMesh.position.set(flagWidth / 2, info.size + 0.4, 0);
+            flagGroup.add(flagMesh);
+
+            planet.add(flagGroup);
         });
         
+        solarSystem.rotation.x = 0.2;
+
         // --- Sidebar Logic ---
         const infoSidebar = document.getElementById('info-sidebar');
         const sidebarTitle = document.getElementById('sidebar-title');
@@ -260,9 +298,13 @@
         // --- Interaction Logic ---
         function onMouseClick(event) {
             raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(celestialBodies);
+            const intersects = raycaster.intersectObjects(celestialBodies, true);
             if (intersects.length > 0) {
-                openSidebar(intersects[0].object.userData);
+                let clickedObject = intersects[0].object;
+                while (clickedObject.parent && !clickedObject.userData.name) {
+                    clickedObject = clickedObject.parent;
+                }
+                openSidebar(clickedObject.userData);
             }
         }
         
@@ -270,7 +312,7 @@
             mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
             mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
             raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(celestialBodies);
+            const intersects = raycaster.intersectObjects(celestialBodies, true);
             document.body.style.cursor = intersects.length > 0 ? 'pointer' : 'default';
         }
 
@@ -279,15 +321,33 @@
 
         // --- Animation Loop ---
         const clock = new THREE.Clock();
+        const worldPosition = new THREE.Vector3();
+
         function animate() {
             const elapsedTime = clock.getElapsedTime();
             
-            sun.rotation.y = elapsedTime * 0.05;
+            sun.rotation.y = elapsedTime * 0.02; 
+            const sunFlag = sun.children.find(child => child.name === 'flag');
+            if(sunFlag) {
+                sunFlag.rotation.y = -sun.rotation.y;
+            }
             
             celestialBodies.forEach(body => {
                 if (body.userData.type === 'planet') {
-                    body.userData.orbit.rotation.z += body.userData.orbitSpeed * 0.05;
-                    body.rotation.y += 0.005; // Self-rotation
+                    body.getWorldPosition(worldPosition);
+                    const speedMultiplier = worldPosition.z < 0 ? 2.5 : 1;
+                    
+                    body.userData.angle += body.userData.baseSpeed * speedMultiplier * 0.1;
+
+                    const { orbitRadius } = body.userData;
+                    body.position.x = Math.cos(body.userData.angle) * orbitRadius;
+                    body.position.z = Math.sin(body.userData.angle) * orbitRadius;
+                    body.rotation.y += 0.005; 
+
+                    const flag = body.children.find(child => child.name === 'flag');
+                    if(flag) {
+                        flag.rotation.y = -body.rotation.y;
+                    }
                 }
             });
             starfield.rotation.y = elapsedTime * 0.002;
@@ -297,9 +357,8 @@
             const heroHeight = window.innerHeight;
             const scrollPercent = Math.min(scrollY / heroHeight, 1);
 
-            // Fade in and move up the universe as user scrolls down
-            universeContainer.position.y = (1 - scrollPercent) * 20;
-            universeContainer.visible = scrollPercent > 0.1;
+            solarSystem.position.y = (1 - scrollPercent) * 20;
+            solarSystem.visible = scrollPercent > 0.1;
             
             // Camera parallax effect
             const parallaxX = mouse.x * 0.5;
