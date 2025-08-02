@@ -15,7 +15,7 @@
             font-family: 'Exo 2', sans-serif;
             color: #e0e0e0;
             background-color: #000000; /* Deep black for space */
-            overflow: hidden; /* Prevent scrolling */
+            overflow-x: hidden;
         }
         .main-heading {
             font-family: 'Orbitron', sans-serif;
@@ -26,11 +26,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0;
-        }
-        .content-container {
-            position: relative;
-            z-index: 1;
+            z-index: -1;
         }
         /* Sidebar Styles */
         #info-sidebar {
@@ -54,35 +50,63 @@
             border-radius: 4px;
             white-space: nowrap;
         }
+        .scroll-down-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-20px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
     <canvas id="bg-canvas"></canvas>
 
-    <div class="content-container min-h-screen p-4 sm:p-6 lg:p-8 flex flex-col justify-between">
-        <!-- Header / Hero Section -->
-        <header class="text-center max-w-5xl mx-auto w-full pt-12 md:pt-16">
+    <main>
+        <!-- Section 1: Hero -->
+        <section id="hero" class="h-screen flex flex-col justify-center items-center text-center p-4 relative">
             <h1 class="main-heading text-5xl md:text-7xl font-bold text-white leading-tight">
                 Sameer Pareek's Universe
             </h1>
             <p class="mt-4 text-xl md:text-2xl text-blue-300 font-light">
-                Explore my world of projects and skills.
+                C++ || Data Science || AI-ML || Full Stack Developer
             </p>
-            <p class="mt-4 text-gray-400">Hover over celestial bodies and click to learn more.</p>
-        </header>
-        
-        <!-- Footer -->
-        <footer class="text-center py-4">
-            <div class="flex justify-center gap-6 mb-4">
-                <a href="https://github.com/Sameer" target="_blank" class="text-gray-400 hover:text-white transition">
-                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.492.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
-                </a>
-                <a href="https://linkedin.com/in/Sameer" target="_blank" class="text-gray-400 hover:text-white transition">
-                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                </a>
+            <div class="scroll-down-indicator text-white">
+                <p class="text-sm mb-2">Scroll Down</p>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
             </div>
-        </footer>
-    </div>
+        </section>
+
+        <!-- Section 2: Interactive Universe -->
+        <section id="universe-section" class="h-screen flex flex-col justify-center items-center text-center p-4 relative">
+             <p class="text-gray-400 absolute top-16">Hover over celestial bodies and click to learn more.</p>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="fixed bottom-0 left-0 w-full text-center py-4 z-10">
+        <div class="flex justify-center gap-6 mb-4">
+            <a href="https://github.com/Sameer" target="_blank" class="text-gray-400 hover:text-white transition">
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.492.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
+            </a>
+            <a href="https://linkedin.com/in/Sameer" target="_blank" class="text-gray-400 hover:text-white transition">
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+        </div>
+    </footer>
     
     <!-- Info Sidebar -->
     <div id="info-sidebar" class="fixed top-0 right-0 h-full w-full max-w-md p-8 transform translate-x-full transition-transform duration-500 ease-in-out z-20 overflow-y-auto">
@@ -118,7 +142,6 @@
         const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#bg-canvas'), antialias: true });
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
-        const textureLoader = new THREE.TextureLoader();
         
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -150,13 +173,15 @@
 
         // Create Celestial Bodies
         const celestialBodies = [];
+        const universeContainer = new THREE.Object3D();
+        scene.add(universeContainer);
         
         // Sun
         const sunGeometry = new THREE.SphereGeometry(1.2, 32, 32);
         const sunMaterial = new THREE.MeshBasicMaterial({ color: 0xFC9601 });
         const sun = new THREE.Mesh(sunGeometry, sunMaterial);
         sun.userData = { type: 'sun', name: 'Sameer Pareek', content: universeData.sun.content };
-        scene.add(sun); // Add sun directly to the scene
+        universeContainer.add(sun); // Add sun to the container
         celestialBodies.push(sun);
 
         const sunLabelDiv = document.createElement('div');
@@ -167,6 +192,7 @@
         sun.add(sunLabel);
 
         // Sun Glow
+        const textureLoader = new THREE.TextureLoader();
         const glowTexture = textureLoader.load('https://s3-us-west-2.amazonaws.com/s.cdpn.io/17271/glow.png');
         const glowMaterial = new THREE.SpriteMaterial({ map: glowTexture, color: 0xFFFF00, transparent: true, blending: THREE.AdditiveBlending });
         const glowSprite = new THREE.Sprite(glowMaterial);
@@ -193,11 +219,10 @@
             });
             const planet = new THREE.Mesh(planetGeometry, planetMaterial);
             
-            // Create a unique, randomly angled orbit for each planet
             const orbit = new THREE.Object3D();
             orbit.rotation.x = Math.random() * Math.PI;
             orbit.rotation.y = Math.random() * Math.PI;
-            scene.add(orbit);
+            universeContainer.add(orbit); // Add orbit to the container
 
             planet.position.x = info.orbitRadius;
             orbit.add(planet);
@@ -254,7 +279,7 @@
 
         // --- Animation Loop ---
         const clock = new THREE.Clock();
-        const animate = () => {
+        function animate() {
             const elapsedTime = clock.getElapsedTime();
             
             sun.rotation.y = elapsedTime * 0.05;
@@ -267,6 +292,15 @@
             });
             starfield.rotation.y = elapsedTime * 0.002;
 
+            // Scroll-based animation
+            const scrollY = window.scrollY;
+            const heroHeight = window.innerHeight;
+            const scrollPercent = Math.min(scrollY / heroHeight, 1);
+
+            // Fade in and move up the universe as user scrolls down
+            universeContainer.position.y = (1 - scrollPercent) * 20;
+            universeContainer.visible = scrollPercent > 0.1;
+            
             // Camera parallax effect
             const parallaxX = mouse.x * 0.5;
             const parallaxY = mouse.y * 0.5;
