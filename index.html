@@ -150,15 +150,13 @@
 
         // Create Celestial Bodies
         const celestialBodies = [];
-        const solarSystem = new THREE.Object3D();
-        scene.add(solarSystem);
         
         // Sun
         const sunGeometry = new THREE.SphereGeometry(1.2, 32, 32);
         const sunMaterial = new THREE.MeshBasicMaterial({ color: 0xFC9601 });
         const sun = new THREE.Mesh(sunGeometry, sunMaterial);
         sun.userData = { type: 'sun', name: 'Sameer Pareek', content: universeData.sun.content };
-        solarSystem.add(sun);
+        scene.add(sun); // Add sun directly to the scene
         celestialBodies.push(sun);
 
         const sunLabelDiv = document.createElement('div');
@@ -177,10 +175,10 @@
 
         // Planets
         const planetInfo = [
-            { color: 0x7AD9F5, size: 0.5 },  // Reelify (Light Blue)
-            { color: 0xF5A623, size: 0.4 },  // Text2Sign (Orange)
-            { color: 0x9B59B6, size: 0.6 },  // Football Analysis (Purple)
-            { color: 0x50E3C2, size: 0.55 }  // Experience (Teal)
+            { color: 0x7AD9F5, size: 0.5, orbitRadius: 4.0 },  // Reelify (Light Blue)
+            { color: 0xF5A623, size: 0.4, orbitRadius: 6.0 },  // Text2Sign (Orange)
+            { color: 0x9B59B6, size: 0.6, orbitRadius: 8.0 },  // Football Analysis (Purple)
+            { color: 0x50E3C2, size: 0.55, orbitRadius: 10.0 } // Deloitte Internship (Teal)
         ];
 
         universeData.planets.forEach((planetData, i) => {
@@ -195,10 +193,18 @@
             });
             const planet = new THREE.Mesh(planetGeometry, planetMaterial);
             
-            const orbitSpeed = 0.1 + Math.random() * 0.08;
-            planet.userData = { type: 'planet', ...planetData, orbitRadius: 3.5 + i * 2.5, orbitSpeed };
+            // Create a unique, randomly angled orbit for each planet
+            const orbit = new THREE.Object3D();
+            orbit.rotation.x = Math.random() * Math.PI;
+            orbit.rotation.y = Math.random() * Math.PI;
+            scene.add(orbit);
 
-            solarSystem.add(planet);
+            planet.position.x = info.orbitRadius;
+            orbit.add(planet);
+            
+            const orbitSpeed = 0.1 + Math.random() * 0.08;
+            planet.userData = { type: 'planet', ...planetData, orbit: orbit, orbitSpeed: orbitSpeed };
+
             celestialBodies.push(planet);
             
             const planetLabelDiv = document.createElement('div');
@@ -209,8 +215,6 @@
             planet.add(planetLabel);
         });
         
-        solarSystem.rotation.x = 0.15; // A slight tilt for perspective without hiding planets
-
         // --- Sidebar Logic ---
         const infoSidebar = document.getElementById('info-sidebar');
         const sidebarTitle = document.getElementById('sidebar-title');
@@ -257,9 +261,7 @@
             
             celestialBodies.forEach(body => {
                 if (body.userData.type === 'planet') {
-                    const { orbitRadius, orbitSpeed } = body.userData;
-                    body.position.x = Math.cos(elapsedTime * orbitSpeed) * orbitRadius;
-                    body.position.z = Math.sin(elapsedTime * orbitSpeed) * orbitRadius;
+                    body.userData.orbit.rotation.z += body.userData.orbitSpeed * 0.05;
                     body.rotation.y += 0.005; // Self-rotation
                 }
             });
