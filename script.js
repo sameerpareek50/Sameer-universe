@@ -150,7 +150,7 @@ sun.add(sunFlagGroup);
 const glowTexture = textureLoader.load('glow3.jpg');
 const glowMaterial = new THREE.SpriteMaterial({ map: glowTexture, color: 0xFFFF00, transparent: true, blending: THREE.AdditiveBlending });
 const glowSprite = new THREE.Sprite(glowMaterial);
-glowSprite.scale.set(6, 6, 6);
+glowSprite.scale.set(4, 4, 4);
 sun.add(glowSprite);
 
 // Planets
