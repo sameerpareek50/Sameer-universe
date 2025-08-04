@@ -28,8 +28,37 @@ const universeData = {
         { 
             name: "Projects",
             moons: [
-                { name: "Reelify", content: `<p class="mb-4">A full-stack web app that allows users to generate video reels by uploading images and text, featuring automated text-to-speech and a dynamic gallery.</p><div class="flex flex-wrap gap-2 mb-4"><span class="tag px-3 py-1 rounded-full">Python</span><span class="tag px-3 py-1 rounded-full">Flask</span><span class="tag px-3 py-1 rounded-full">ElevenLabs API</span><span class="tag px-3 py-1 rounded-full">FFmpeg</span></div><a href="https://github.com/Sameer/Reelify" target="_blank" class="text-blue-400 hover:text-blue-300 font-semibold">View on GitHub &rarr;</a>` },
-                { name: "Text2Sign", content: `<p class="mb-4">An NLP-powered application to translate text into animated sign language, aiming to improve accessibility for the hearing-impaired community. Deployed with Docker for scalability.</p><div class="flex flex-wrap gap-2 mb-4"><span class="tag px-3 py-1 rounded-full">Python</span><span class="tag px-3 py-1 rounded-full">Flask</span><span class="tag px-3 py-1 rounded-full">NLP</span><span class="tag px-3 py-1 rounded-full">Docker</span></div><a href="https://github.com/Sameer/Text2Sign" target="_blank" class="text-blue-400 hover:text-blue-300 font-semibold">View on GitHub &rarr;</a>` },
+                { name: "Reelify", content: `<div class="flex flex-wrap gap-2 mb-4"> <ul class="list-disc list-inside space-y-2">
+                <li>Developed a full-stack web app with Python, Flask, and FFmpeg, enabling 1000+ users to generate video reels by uploading images and inputting custom text.</li>
+
+                <li>Integrated ElevenLabs API for realistic text-to-speech and built a 100% automated reel generation workflow with UUID-based session management, supporting high-concurrency uploads with 99.99% uptime and zero data breaches.</li>
+
+                <li>Designed a responsive frontend with real-time feedback and an adaptable gallery showcasing 200+ user-generated reels, significantly boosting user engagement and experience.</li>
+                </ul> </div>
+
+                   <div class="flex flex-wrap gap-2 mb-4"> 
+                <span class="tag px-3 py-1 rounded-full">Python</span><span class="tag px-3 py-1 rounded-full">Flask</span><span class="tag px-3 py-1 rounded-full">ElevenLabs API</span><span class="tag px-3 py-1 rounded-full">FFmpeg</span></div>
+
+                <div class="flex flex-wrap gap-2 mb-4"> 
+                <a href="https://github.com/sameerpareek50/Reelify" target="_blank" class="text-blue-400 hover:text-blue-300 font-semibold">View on GitHub &rarr;</a></div>
+                <div class="flex flex-wrap gap-2 mb-4"> 
+                <a href="https://reelify-cgnr.onrender.com" target="_blank" class="text-blue-400 hover:text-blue-300 font-semibold">Reelify &rarr;</a></div>` },
+
+                { name: "Text2Sign", content: `<div class="flex flex-wrap gap-2 mb-4"> <ul class="list-disc list-inside space-y-2">
+                <li>Processed 1300+ sign glosses across 5 core modules (UI, NLP, translation, animation, feedback) and deployed via Docker for seamless scalability.</li>
+
+                <li>Achieved 90%+ token-to-sign match accuracy, integrating fallback through fingerspelling and synonym substitution for unmatched signs.</li>
+
+                <li>Used CWASA player to animate gloss sequences with facial expressions and non-manual cues, ensuring sub-2-second response time.</li>
+
+                <li>Aimed to impact 34M+ global hearing-impaired users, utilizing a 6-stage NLP pipeline and rule-based grammar parsing for inclusive accessibility.</li>
+                </ul> </div>
+
+                   <div class="flex flex-wrap gap-2 mb-4"> 
+                <span class="tag px-3 py-1 rounded-full">Python</span><span class="tag px-3 py-1 rounded-full">Flask</span><span class="tag px-3 py-1 rounded-full">NLP</span><span class="tag px-3 py-1 rounded-full">Docker</span><span class="tag px-3 py-1 rounded-full">SIGML</span><span class="tag px-3 py-1 rounded-full">CWASA</span><span class="tag px-3 py-1 rounded-full">Stanza</span></div>
+
+                <div class="flex flex-wrap gap-2 mb-4"> 
+                <a href="https://github.com/acdevz/text2sign" target="_blank" class="text-blue-400 hover:text-blue-300 font-semibold">View on GitHub &rarr;</a></div>` },
                 { name: "Football Analysis", content: `<p class="mb-4">A real-time system using YOLOv5 to detect and track players, referees, and the ball in football matches, providing detailed in-game visualizations and analytics.</p><div class="flex flex-wrap gap-2 mb-4"><span class="tag px-3 py-1 rounded-full">Python</span><span class="tag px-3 py-1 rounded-full">YOLO</span><span class="tag px-3 py-1 rounded-full">OpenCV</span><span class="tag px-3 py-1 rounded-full">Pandas</span></div><a href="https://github.com/Sameer/Football-Analysis-System" target="_blank" class="text-blue-400 hover:text-blue-300 font-semibold">View on GitHub &rarr;</a>` }
             ]
         },
@@ -44,7 +73,10 @@ const universeData = {
         { 
             name: "Certificates",
             moons: [
-                { name: "Quantum Computing", content: `<h3 class="text-2xl font-semibold text-white">Quantum Computing</h3><p class="text-blue-300 font-medium mb-2">Womaniun Quantum + AI Program 2024</p><p class="mb-4">Completed an intensive program covering quantum algorithms, qubits, and quantum machine learning. Gained hands-on experience with Qiskit and the IBM Quantum Experience platform.</p><div class="flex flex-wrap gap-2 mb-4"><span class="tag">Qiskit</span><span class="tag">Quantum Algorithms</span><span class="tag">IBM Quantum</span></div><p class="text-center mt-6 font-semibold">Certificate of Completion:</p><img src="https://placehold.co/400x250/111827/e0e0e0?text=Certificate+Image" alt="Quantum Certificate" class="rounded-lg mt-2 mx-auto border border-gray-600">` }
+                { name: "Quantum Computing", content: `<h3 class="text-2xl font-semibold text-white">Quantum Computing</h3><p class="text-blue-300 font-medium mb-2">Womaniun Quantum + AI Program 2024</p><p class="mb-4">Completed an intensive program covering quantum algorithms, qubits, and quantum machine learning. Gained hands-on experience with Qiskit and the IBM Quantum Experience platform.</p><div class="flex flex-wrap gap-2 mb-4"><span class="tag">Qiskit</span><span class="tag">Quantum Algorithms</span><span class="tag">IBM Quantum</span></div>
+                
+                <div class="flex flex-wrap gap-2 mb-4"> 
+                <a href="https://drive.google.com/drive/folders/1Re0r7qMNkEhQtxB4bBYen7p-ONxQXP-7" target="_blank" class="text-blue-400 hover:text-blue-300 font-semibold">Certificates &rarr;</a></div>    ` }
             ]
         }
     ]
