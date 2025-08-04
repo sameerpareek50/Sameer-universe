@@ -2,24 +2,27 @@
 const universeData = {
     sun: { 
         name: 'About Me',
-        content: `<p>I am a passionate and driven Information Technology undergraduate at NIT Jalandhar with a strong foundation in Data Structures, Algorithms, and Software Development. My journey in tech is fueled by a curiosity for solving complex problems and building impactful applications. With experience in Machine Learning, full-stack web development, and data analysis, I am eager to contribute my skills to innovative projects and continue learning in a dynamic environment.</p><h3 class="text-2xl font-semibold text-white mt-6 mb-4">Contact</h3><a href="mailto:sameerpareek500@gmail.com" class="inline-block bg-blue-500/50 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-500/70 transition">sameerpareek500@gmail.com</a>` 
+        content: `<p>I am a passionate and driven Information Technology undergraduate at NIT Jalandhar with a strong foundation in Data Structures, Algorithms, and Software Development. My journey in tech is fueled by a curiosity for solving complex problems and building impactful applications. With experience in Machine Learning, full-stack web development, and data analysis, I am eager to contribute my skills to innovative projects and continue learning in a dynamic environment.</p><h3 class="text-2xl font-semibold text-white mt-6 mb-4">Contact</h3><a href="mailto:sameerpareek500@gmail.com" class="inline-block bg-blue-500/50 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-500/70 transition">sameerpareek500@gmail.com</a> <a href="tel: +918696867171" class="inline-block bg-blue-500/50 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-500/70 transition">+91 86968-67176</a>` 
     },
     planets: [
         { 
             name: "Education",
             moons: [
-                { name: "B.Tech - NIT Jalandhar", content: `<h3 class="text-2xl font-semibold text-white">Dr. B.R. Ambedkar National Institute of Technology, Jalandhar</h3><p class="text-blue-300 font-medium mb-2">Bachelor of Technology in Information Technology | 2022-2026</p><p>Current CGPA: 7.97 (until 6th sem)</p>` },
+                { name: "B.Tech", content: `<h3 class="text-2xl font-semibold text-white">Dr. B.R. Ambedkar National Institute of Technology, Jalandhar</h3><p class="text-blue-300 font-medium mb-2">Bachelor of Technology in Information Technology | 2022-2026</p><p>Current CGPA: 7.97 (until 6th sem)</p>` },
                 { name: "Senior Secondary", content: `<h3 class="text-2xl font-semibold text-white">Holy Spirit Sr. Sec. School, Jodhpur</h3><p class="text-blue-300 font-medium mb-2">Class XII, Science Stream | 2019-2021</p><p>Percentage: 93.2% (PCM)</p>`}
             ]
         },
         { 
             name: "Coursework", 
-            content: `<p class="mb-4">Key subjects studied during my B.Tech program include:</p><div class="flex flex-wrap gap-2 mb-4"><span class="tag px-3 py-1 rounded-full">Data Structures & Algorithms</span><span class="tag px-3 py-1 rounded-full">Operating Systems</span><span class="tag px-3 py-1 rounded-full">DBMS</span><span class="tag px-3 py-1 rounded-full">Computer Graphics</span><span class="tag px-3 py-1 rounded-full">Cryptography</span><span class="tag px-3 py-1 rounded-full">Data Analytics</span><span class="tag px-3 py-1 rounded-full">OOPs</span><span class="tag px-3 py-1 rounded-full">Software Engineering</span></div>` 
+            content: `<p class="mb-4">Key subjects studied during my B.Tech program include:</p><div class="flex flex-wrap gap-2 mb-4"><span class="tag px-3 py-1 rounded-full">Data Structures & Algorithms</span><span class="tag px-3 py-1 rounded-full">Operating Systems</span><span class="tag px-3 py-1 rounded-full">DBMS</span><span class="tag px-3 py-1 rounded-full">Computer Networking </span> <span class="tag px-3 py-1 rounded-full">Computer Graphics</span><span class="tag px-3 py-1 rounded-full">Cryptography</span><span class="tag px-3 py-1 rounded-full">Data Analytics</span><span class="tag px-3 py-1 rounded-full">OOPs</span><span class="tag px-3 py-1 rounded-full">Software Engineering</span><span class="tag px-3 py-1 rounded-full">Data Mining </span><span class="tag px-3 py-1 rounded-full">Web Development </span><span class="tag px-3 py-1 rounded-full">Soft Computing </span></div>` 
         },
         { 
             name: "Experience",
             moons: [
-                { name: "Deloitte Internship", content: `<h3 class="text-2xl font-semibold text-white">Deloitte - Virtual Internship</h3><p class="text-blue-300 font-medium mb-2">Data Analysis | Remote | June 2025</p><ul class="list-disc list-inside space-y-2"><li>Built a dynamic Tableau dashboard to visualize client telemetry data, uncovering key trends and improving stakeholder visibility by 60%.</li><li>Supported a forensic investigation by classifying 10,000+ Excel records to identify unfair pay patterns, influencing client compliance strategy.</li></ul>` }
+                { name: "Deloitte Internship", content: `<h3 class="text-2xl font-semibold text-white">Deloitte - Virtual Internship</h3><p class="text-blue-300 font-medium mb-2">Data Analysis | Remote | June 2025</p><ul class="list-disc list-inside space-y-2"><li>Built a dynamic Tableau dashboard to visualize client telemetry data, uncovering key trends and improving stakeholder visibility by 60%.</li><li>Supported a forensic investigation by classifying 10,000+ Excel records to identify unfair pay patterns, influencing client compliance strategy.</li></ul> <p class="text-center mt-6 font-semibold">Certificate of Completion:</p>
+                <img src="Deloitte_Certificate.png" alt="DataCom Certificate" class="rounded-lg mt-2 mx-auto border border-gray-600">` },
+                { name: "DataCom Internship", content: `<h3 class="text-2xl font-semibold text-white">DataCom - Virtual Internship</h3><p class="text-blue-300 font-medium mb-2">Software Engineer | Remote | June 2025 - July 2025</p><ul class="list-disc list-inside space-y-2"><li>Reviewed production web application and proposed 3+ key improvements to enhance speed and user experience.</li><li>Resolved 2 major bugs after root cause analysis, improving application stability by 40%.</li></ul> <p class="text-center mt-6 font-semibold">Certificate of Completion:</p>
+                <img src="DataCom_Certificate.png" alt="DataCom Certificate" class="rounded-lg mt-2 mx-auto border border-gray-600">` }
             ]
         },
         { 
@@ -99,9 +102,10 @@ function createFlagTexture(text, isSun = false, isMoon = false) {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
     const fontSize = isSun ? 90 : (isMoon ? 40 : 50);
-    const font = `bold ${fontSize}px Orbitron`;
+    // Make font bold and use a clear, sans-serif font
+    const font = `bold ${fontSize}px Orbitron, Arial, sans-serif`;
     context.font = font;
-    
+
     const textWidth = context.measureText(text).width;
     canvas.width = textWidth + 40;
     canvas.height = isMoon ? 80 : 100;
@@ -110,8 +114,12 @@ function createFlagTexture(text, isSun = false, isMoon = false) {
     context.textAlign = 'center';
     context.textBaseline = 'middle';
     context.fillStyle = 'white';
+    // Add a black outline for better readability (optional)
+    context.lineWidth = 6;
+    context.strokeStyle = 'black';
+    context.strokeText(text, canvas.width / 2, canvas.height / 2);
     context.fillText(text, canvas.width / 2, canvas.height / 2);
-    
+
     return new THREE.CanvasTexture(canvas);
 }
 
@@ -147,7 +155,7 @@ sunFlagGroup.add(sunFlagMesh);
 sun.add(sunFlagGroup);
 
 // Sun Glow
-const glowTexture = textureLoader.load('glow3.jpg');
+const glowTexture = textureLoader.load('glo.jpg');
 const glowMaterial = new THREE.SpriteMaterial({ map: glowTexture, color: 0xFFFF00, transparent: true, blending: THREE.AdditiveBlending });
 const glowSprite = new THREE.Sprite(glowMaterial);
 glowSprite.scale.set(4, 4, 4);
@@ -155,13 +163,13 @@ sun.add(glowSprite);
 
 // Planets
 const planetInfo = [
-    { color: 0x7AD9F5, size: 0.5, orbitRadius: 4.0 },  // Education
-    { color: 0xF5A623, size: 0.4, orbitRadius: 6.0 },  // Coursework
-    { color: 0x9B59B6, size: 0.6, orbitRadius: 8.0 },  // Experience
-    { color: 0xE74C3C, size: 0.7, orbitRadius: 10.5 }, // Projects
-    { color: 0x50E3C2, size: 0.55, orbitRadius: 12.5 },// Technical Skills
-    { color: 0xF1C40F, size: 0.45, orbitRadius: 14.0 },// Achievements
-    { color: 0x00FFD0, size: 0.5, orbitRadius: 15.5 }  // Certificates
+    { color: 0xb1adad, size: 0.5, orbitRadius: 2.0 },  // Education
+    { color: 0xd3a567, size: 0.5, orbitRadius: 3.2 },  // Coursework
+    { color: 0xc1440e, size: 0.5, orbitRadius: 4.4 },  // Experience
+    { color: 0x6b93d6, size: 0.5, orbitRadius: 5.6 }, // Projects
+    { color: 0xc99039, size: 0.5, orbitRadius: 6.8 },// Technical Skills
+    { color: 0xF1C40F, size: 0.5, orbitRadius: 8.0 },// Achievements
+    { color: 0x00FFD0, size: 0.5, orbitRadius: 9.2 }  // Certificates
 ];
 
 universeData.planets.forEach((planetData, i) => {
@@ -374,8 +382,16 @@ function animate() {
         sun.rotation.y = elapsedTime * 0.02;
         celestialBodies.forEach(body => {
             if (body.userData.type === 'planet') {
-                body.userData.angle += body.userData.baseSpeed * 0.1;
+                // --- Kepler effect: faster behind sun (z < 0), normal in front (z >= 0) ---
+                // Calculate the planet's position in world space
+                let angle = body.userData.angle;
                 const { orbitRadius } = body.userData;
+                // Predict next position for speed calculation
+                const x = Math.cos(angle) * orbitRadius;
+                const z = Math.sin(angle) * orbitRadius;
+                // If z < 0, planet is behind the sun (from camera's default perspective)
+                const speedMultiplier = z < 0 ? 1 : 1;
+                body.userData.angle += body.userData.baseSpeed * speedMultiplier * 0.1;
                 body.position.x = Math.cos(body.userData.angle) * orbitRadius;
                 body.position.z = Math.sin(body.userData.angle) * orbitRadius;
                 body.rotation.y += 0.005; // Planet's self-rotation in solar system view
