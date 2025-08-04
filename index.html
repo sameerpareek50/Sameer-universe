@@ -4,60 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sameer Pareek | Software Developer</title>
+    
+    <!-- EXTERNAL LIBRARIES -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Exo+2:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS2DRenderer.js"></script>
-    <style>
-        body {
-            font-family: 'Exo 2', sans-serif;
-            color: #e0e0e0;
-            background-color: #000000; /* Deep black for space */
-            overflow-x: hidden;
-        }
-        .main-heading {
-            font-family: 'Orbitron', sans-serif;
-        }
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-        /* Sidebar Styles */
-        #info-sidebar {
-            background-color: rgba(17, 24, 39, 0.8);
-            backdrop-filter: blur(10px);
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .tag {
-            background-color: rgba(59, 130, 246, 0.2);
-            color: #60a5fa;
-            font-weight: 500;
-        }
-        .scroll-down-indicator {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-        }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40% {
-                transform: translateX(-50%) translateY(-20px);
-            }
-            60% {
-                transform: translateX(-50%) translateY(-10px);
-            }
-        }
-    </style>
+    <!-- NEW: GSAP for smooth animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+
+    <!-- YOUR STYLESHEET -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="antialiased">
     <canvas id="bg-canvas"></canvas>
@@ -83,6 +42,10 @@
         <section id="universe-section" class="h-screen flex flex-col justify-center items-center text-center p-4 relative">
              <p class="text-gray-400 absolute top-16">Hover over celestial bodies and click to learn more.</p>
         </section>
+
+        <button id="back-btn" class="fixed top-8 left-8 z-30 px-4 py-2 bg-gray-800/50 text-white rounded-lg backdrop-filter backdrop-blur-sm hover:bg-gray-700/70 transition-colors hidden">
+            &larr; Back to Universe
+        </button>
     </main>
     
     <!-- Footer -->
@@ -113,282 +76,7 @@
         <div id="sidebar-body" class="text-lg leading-relaxed"></div>
     </div>
 
-
-    <script>
-        // --- Data from your resume ---
-        const universeData = {
-            sun: { content: `<p>I am a passionate and driven Information Technology undergraduate at NIT Jalandhar with a strong foundation in Data Structures, Algorithms, and Software Development. My journey in tech is fueled by a curiosity for solving complex problems and building impactful applications. With experience in Machine Learning, full-stack web development, and data analysis, I am eager to contribute my skills to innovative projects and continue learning in a dynamic environment.</p><h3 class="text-2xl font-semibold text-white mt-6 mb-4">Contact</h3><a href="mailto:sameerpareek500@gmail.com" class="inline-block bg-blue-500/50 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-500/70 transition">sameerpareek500@gmail.com</a>` },
-            planets: [
-                { name: "Reelify", content: `<p class="mb-4">A full-stack web app that allows users to generate video reels by uploading images and text, featuring automated text-to-speech and a dynamic gallery.</p><div class="flex flex-wrap gap-2 mb-4"><span class="tag px-3 py-1 rounded-full">Python</span><span class="tag px-3 py-1 rounded-full">Flask</span><span class="tag px-3 py-1 rounded-full">ElevenLabs API</span><span class="tag px-3 py-1 rounded-full">FFmpeg</span></div><a href="https://github.com/Sameer/Reelify" target="_blank" class="text-blue-400 hover:text-blue-300 font-semibold">View on GitHub &rarr;</a>` },
-                { name: "Text2Sign", content: `<p class="mb-4">An NLP-powered application to translate text into animated sign language, aiming to improve accessibility for the hearing-impaired community. Deployed with Docker for scalability.</p><div class="flex flex-wrap gap-2 mb-4"><span class="tag px-3 py-1 rounded-full">Python</span><span class="tag px-3 py-1 rounded-full">Flask</span><span class="tag px-3 py-1 rounded-full">NLP</span><span class="tag px-3 py-1 rounded-full">Docker</span></div><a href="https://github.com/Sameer/Text2Sign" target="_blank" class="text-blue-400 hover:text-blue-300 font-semibold">View on GitHub &rarr;</a>` },
-                { name: "Football Analysis", content: `<p class="mb-4">A real-time system using YOLOv5 to detect and track players, referees, and the ball in football matches, providing detailed in-game visualizations and analytics.</p><div class="flex flex-wrap gap-2 mb-4"><span class="tag px-3 py-1 rounded-full">Python</span><span class="tag px-3 py-1 rounded-full">YOLO</span><span class="tag px-3 py-1 rounded-full">OpenCV</span><span class="tag px-3 py-1 rounded-full">Pandas</span></div><a href="https://github.com/Sameer/Football-Analysis-System" target="_blank" class="text-blue-400 hover:text-blue-300 font-semibold">View on GitHub &rarr;</a>` },
-                { name: "Deloitte Internship", content: `<h3 class="text-2xl font-semibold text-white">Deloitte - Virtual Internship</h3><p class="text-blue-300 font-medium mb-2">Data Analysis | Remote | June 2025</p><ul class="list-disc list-inside space-y-2"><li>Built a dynamic Tableau dashboard to visualize client telemetry data, uncovering key trends and improving stakeholder visibility by 60%.</li><li>Supported a forensic investigation by classifying 10,000+ Excel records to identify unfair pay patterns, influencing client compliance strategy.</li></ul>` },
-                { name: "Quantum computing", content: `<p class="mb-4">Exploring the fascinating world of quantum computing, including quantum algorithms, qubits, and the potential to revolutionize problem-solving in cryptography, optimization, and simulation. Currently learning Qiskit and experimenting with IBM Quantum Experience.</p><div class="flex flex-wrap gap-2 mb-4"><span class="tag px-3 py-1 rounded-full">Qiskit</span><span class="tag px-3 py-1 rounded-full">Quantum Algorithms</span><span class="tag px-3 py-1 rounded-full">IBM Quantum</span></div>` }
-            ]
-        };
-
-        // --- Three.js Scene Setup ---
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#bg-canvas'), antialias: true });
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2();
-        
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        renderer.shadowMap.enabled = true;
-        renderer.shadowMap.type = THREE.PCFSoftShadowMap; 
-        
-        camera.position.z = 12;
-
-        // CSS2D Renderer for labels (no longer needed, but keep the script import)
-        let labelRenderer = new THREE.CSS2DRenderer();
-        labelRenderer.setSize(window.innerWidth, window.innerHeight);
-        labelRenderer.domElement.style.position = 'absolute';
-        labelRenderer.domElement.style.top = '0px';
-        labelRenderer.domElement.style.pointerEvents = 'none';
-        document.body.appendChild(labelRenderer.domElement);
-
-        // Lights
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-        scene.add(ambientLight);
-        const pointLight = new THREE.PointLight(0xFFFF88, 1, 200);
-        pointLight.castShadow = true;
-        scene.add(pointLight);
-
-        // Starfield
-        const starGeometry = new THREE.BufferGeometry();
-        const starCount = 10900;
-        const posArray = new Float32Array(starCount * 3);
-        for(let i = 0; i < starCount * 3; i++) { posArray[i] = (Math.random() - 0.5) * 200; }
-        starGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-        const starMaterial = new THREE.PointsMaterial({ size: 0.05, color: 0xffffff });
-        const starfield = new THREE.Points(starGeometry, starMaterial);
-        scene.add(starfield);
-
-        // Create Celestial Bodies
-        const celestialBodies = [];
-        const solarSystem = new THREE.Object3D();
-        scene.add(solarSystem);
-        
-        // --- Function to create a flag texture ---
-        function createFlagTexture(text, isSun = false) {
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
-            const fontSize = isSun ? 90 : 50; // Increased from 60 to 90
-            const font = `bold ${fontSize}px Orbitron`;
-            context.font = font;
-            
-            const textWidth = context.measureText(text).width;
-            canvas.width = textWidth + 40; // Add some padding
-            canvas.height = 100;
-
-            // Re-apply font after resizing canvas
-            context.font = font;
-            context.textAlign = 'center';
-            context.textBaseline = 'middle';
-            context.fillStyle = 'white';
-            context.fillText(text, canvas.width / 2, canvas.height / 2);
-            
-            return new THREE.CanvasTexture(canvas);
-        }
-        
-        const textureLoader = new THREE.TextureLoader();
-
-        // Sun
-        // PASTE YOUR IMAGE URL HERE
-        const sunTexture = textureLoader.load('Sun.jpg'); 
-        const sunGeometry = new THREE.SphereGeometry(1.2, 32, 32);
-        const sunMaterial = new THREE.MeshBasicMaterial({ map: sunTexture });
-        const sun = new THREE.Mesh(sunGeometry, sunMaterial);
-        sun.castShadow = false;      // Ensure sun does not cast shadows
-        sun.receiveShadow = false;   // Ensure sun does not receive shadows
-        sun.userData = { type: 'sun', name: 'About Me', content: universeData.sun.content };
-        solarSystem.add(sun);
-        celestialBodies.push(sun);
-
-        // --- Create Flag for the Sun ---
-        const sunFlagGroup = new THREE.Group();
-        sunFlagGroup.name = 'flag';
-        const sunPoleGeometry = new THREE.CylinderGeometry(0.03, 0.03, 1.2, 8);
-        const sunPoleMaterial = new THREE.MeshBasicMaterial({ color: 0xcccccc });
-        const sunPoleMesh = new THREE.Mesh(sunPoleGeometry, sunPoleMaterial);
-        sunPoleMesh.position.y = 1.2;
-        sunFlagGroup.add(sunPoleMesh);
-        const sunFlagTexture = createFlagTexture("About Me", true);
-        const sunFlagWidth = sunFlagTexture.image.width / 200;
-        const sunFlagHeight = sunFlagTexture.image.height / 200;
-        const sunFlagGeometry = new THREE.PlaneGeometry(sunFlagWidth, sunFlagHeight);
-        const sunFlagMaterial = new THREE.MeshBasicMaterial({ map: sunFlagTexture, side: THREE.DoubleSide, transparent: true });
-        const sunFlagMesh = new THREE.Mesh(sunFlagGeometry, sunFlagMaterial);
-        sunFlagMesh.position.set(sunFlagWidth / 2, 1.2 + 0.3, 0);
-        sunFlagGroup.add(sunFlagMesh);
-        sun.add(sunFlagGroup);
-
-        // Sun Glow
-        const glowTexture = textureLoader.load('https://s3-us-west-2.amazonaws.com/s.cdpn.io/17271/glow.png');
-        const glowMaterial = new THREE.SpriteMaterial({ map: glowTexture, color: 0xFFFF00, transparent: true, blending: THREE.AdditiveBlending });
-        const glowSprite = new THREE.Sprite(glowMaterial);
-        glowSprite.scale.set(6, 6, 6);
-        sun.add(glowSprite);
-
-        // Planets
-        const planetInfo = [
-            { color: 0x7AD9F5, size: 0.5, orbitRadius: 4.0 },  // Reelify (Light Blue)
-            { color: 0xF5A623, size: 0.4, orbitRadius: 6.0 },  // Text2Sign (Orange)
-            { color: 0x9B59B6, size: 0.6, orbitRadius: 8.0 },  // Football Analysis (Purple)
-            { color: 0x50E3C2, size: 0.55, orbitRadius: 9.5 }, // Deloitte Internship (Teal)
-            { color: 0x00FFD0, size: 0.45, orbitRadius: 11.0 } // Quantum computing (Cyan)
-        ];
-
-        universeData.planets.forEach((planetData, i) => {
-            const info = planetInfo[i];
-            const planetGeometry = new THREE.SphereGeometry(info.size, 32, 32);
-            const planetMaterial = new THREE.MeshStandardMaterial({
-                color: info.color,
-                emissive: info.color,
-                emissiveIntensity: 0.1,
-                roughness: 0.5,
-                metalness: 0.1
-            });
-            const planet = new THREE.Mesh(planetGeometry, planetMaterial);
-            planet.castShadow = true;
-            planet.receiveShadow = true;
-            
-            solarSystem.add(planet);
-            
-            const baseSpeed = 0.03 + Math.random() * 0.02; 
-            planet.userData = { type: 'planet', ...planetData, orbitRadius: info.orbitRadius, baseSpeed: baseSpeed, angle: Math.random() * Math.PI * 2 };
-
-            celestialBodies.push(planet);
-            
-            // --- Create Flag for each planet ---
-            const flagGroup = new THREE.Group();
-            flagGroup.name = 'flag';
-            
-            const poleGeometry = new THREE.CylinderGeometry(0.02, 0.02, 0.8, 8);
-            const poleMaterial = new THREE.MeshBasicMaterial({ color: 0xcccccc });
-            const poleMesh = new THREE.Mesh(poleGeometry, poleMaterial);
-            poleMesh.position.y = info.size;
-            flagGroup.add(poleMesh);
-
-            const flagTexture = createFlagTexture(planetData.name);
-            const flagWidth = flagTexture.image.width / 200;
-            const flagHeight = flagTexture.image.height / 200;
-            const flagGeometry = new THREE.PlaneGeometry(flagWidth, flagHeight);
-            const flagMaterial = new THREE.MeshBasicMaterial({ map: flagTexture, side: THREE.DoubleSide, transparent: true });
-            const flagMesh = new THREE.Mesh(flagGeometry, flagMaterial);
-            flagMesh.position.set(flagWidth / 2, info.size + 0.4, 0);
-            flagGroup.add(flagMesh);
-
-            planet.add(flagGroup);
-        });
-        
-        solarSystem.rotation.x = 0.2;
-
-        // --- Sidebar Logic ---
-        const infoSidebar = document.getElementById('info-sidebar');
-        const sidebarTitle = document.getElementById('sidebar-title');
-        const sidebarBody = document.getElementById('sidebar-body');
-
-        function openSidebar(data) {
-            sidebarTitle.textContent = data.name;
-            sidebarBody.innerHTML = data.content;
-            infoSidebar.classList.remove('translate-x-full');
-        }
-
-        function closeSidebar() {
-            infoSidebar.classList.add('translate-x-full');
-        }
-
-        document.getElementById('sidebar-close-btn').addEventListener('click', closeSidebar);
-        
-        // --- Interaction Logic ---
-        function onMouseClick(event) {
-            raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(celestialBodies, true);
-            if (intersects.length > 0) {
-                let clickedObject = intersects[0].object;
-                while (clickedObject.parent && !clickedObject.userData.name) {
-                    clickedObject = clickedObject.parent;
-                }
-                openSidebar(clickedObject.userData);
-            }
-        }
-        
-        function onMouseMove(event) {
-            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-            raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(celestialBodies, true);
-            document.body.style.cursor = intersects.length > 0 ? 'pointer' : 'default';
-        }
-
-        window.addEventListener('click', onMouseClick);
-        window.addEventListener('mousemove', onMouseMove);
-
-        // --- Animation Loop ---
-        const clock = new THREE.Clock();
-        const worldPosition = new THREE.Vector3();
-
-        function animate() {
-            const elapsedTime = clock.getElapsedTime();
-            
-            sun.rotation.y = elapsedTime * 0.02; 
-            const sunFlag = sun.children.find(child => child.name === 'flag');
-            if(sunFlag) {
-                sunFlag.rotation.y = -sun.rotation.y;
-            }
-            
-            celestialBodies.forEach(body => {
-                if (body.userData.type === 'planet') {
-                    body.getWorldPosition(worldPosition);
-                    const speedMultiplier = worldPosition.z < 0 ? 2.5 : 1;
-                    
-                    body.userData.angle += body.userData.baseSpeed * speedMultiplier * 0.1;
-
-                    const { orbitRadius } = body.userData;
-                    body.position.x = Math.cos(body.userData.angle) * orbitRadius;
-                    body.position.z = Math.sin(body.userData.angle) * orbitRadius;
-                    body.rotation.y += 0.005; 
-
-                    const flag = body.children.find(child => child.name === 'flag');
-                    if(flag) {
-                        flag.rotation.y = -body.rotation.y;
-                    }
-                }
-            });
-            starfield.rotation.y = elapsedTime * 0.002;
-
-            // Scroll-based animation
-            const scrollY = window.scrollY;
-            const heroHeight = window.innerHeight;
-            const scrollPercent = Math.min(scrollY / heroHeight, 1);
-
-            solarSystem.position.y = (1 - scrollPercent) * 20;
-            solarSystem.visible = scrollPercent > 0.1;
-            
-            // Camera parallax effect
-            const parallaxX = mouse.x * 0.5;
-            const parallaxY = mouse.y * 0.5;
-            camera.position.x += (parallaxX - camera.position.x) * 0.02;
-            camera.position.y += (parallaxY - camera.position.y) * 0.02;
-            camera.lookAt(scene.position);
-
-            renderer.render(scene, camera);
-            labelRenderer.render(scene, camera);
-            window.requestAnimationFrame(animate);
-        };
-        animate();
-
-        // --- Handle window resize ---
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            labelRenderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        });
-    </script>
+    <!-- YOUR SCRIPT FILE -->
+    <script src="script.js"></script>
 </body>
 </html>
