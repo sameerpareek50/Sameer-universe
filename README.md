@@ -63,22 +63,9 @@ This project is an interactive 3D portfolio that visualizes a resume or CV as a 
 
 ---
 
-## Getting Started
-
-1. Clone or download the repository.
-2. Place your images (e.g., sun texture) in the `assets/` folder.
-3. Open `index.html` in your browser.
-
----
-
 ## Credits
 
 - [Three.js](https://threejs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [GSAP](https://greensock.com/gsap/)
 
----
-
-## License
-
-This project is open source and available
